@@ -4,6 +4,7 @@
   "description": "https://www.linkedin.com/learning/node-js-real-time-web-with-socket-io/",
   "main": "index.js",
   "scripts": {
+    "debug": "set DEBUG=* & nodemon ./index.js --execute babel-node -e js",
     "start": "nodemon ./index.js --execute babel-node -e js"
   },
   "repository": {
