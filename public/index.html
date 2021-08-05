@@ -57,9 +57,14 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io.connect('http://localhost:3000')
-      socket.on('message', (data) => {
-        console.log(data);
-        socket.emit('another event', { jeremy: 'Thank you, I am great!' });
+      $('form').submit(() => {
+        socket.emit('message', $('#m').val()); // emit a message event with the value from the input #m
+        $('#m').val(''); // reset input value
+        return false;
+      });
+
+      socket.on('message', (message) => { // when receiving a message
+        $('#messages').append($('<li>').text(message)); // append it to the ul #messages
       });
     </script>
   </body>
