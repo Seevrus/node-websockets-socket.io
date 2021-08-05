@@ -56,18 +56,18 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      const socket = io.connect('http://localhost:3000')
+      const techSocket = io.connect('http://localhost:3000/tech')
       $('form').submit(() => {
-        socket.emit('message', $('#m').val()); // emit a message event with the value from the input #m
+        techSocket.emit('message', $('#m').val()); // emit a message event with the value from the input #m
         $('#m').val(''); // reset input value
         return false;
       });
 
-      socket.on('connect', () => {
-        socket.emit('message', 'user connected'); // emitting notification to everybody
+      techSocket.on('connect', () => {
+        techSocket.emit('message', 'user connected'); // emitting notification to everybody
       });
 
-      socket.on('message', (message) => { // when receiving a message
+      techSocket.on('message', (message) => { // when receiving a message
         $('#messages').append($('<li>').text(message)); // append it to the ul #messages
       });
     </script>

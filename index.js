@@ -11,16 +11,19 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-io.on('connection', (socket) => {
+// tech namespace
+const tech = io.of('/tech');
+
+tech.on('connection', (socket) => {
   console.log(`user connected`);
 
   socket.on('message', (message) => {
     console.log(`[Client]: ${message}`);
-    io.emit('message', message);  // this will redistribute message to all clients, who in turn will display it on their ui
+    tech.emit('message', message);  // this will redistribute message to all clients, who in turn will display it on their ui
   });
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
-    io.emit('message', 'user disconnected');
+    tech.emit('message', 'user disconnected');
   });
 });
