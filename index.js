@@ -13,9 +13,14 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log(`user connected`);
-  
+
   socket.on('message', (message) => {
     console.log(`[Client]: ${message}`);
-    io.emit('message', `[Server] Received: ${message}`);
+    io.emit('message', message);  // this will redistribute message to all clients, who in turn will display it on their ui
+  });
+
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    io.emit('message', 'user disconnected');
   });
 });
