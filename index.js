@@ -11,8 +11,16 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/css', (req, res) => {
+  res.sendFile(__dirname + '/public/css.html');
+});
+
 app.get('/javascript', (req, res) => {
   res.sendFile(__dirname + '/public/javascript.html');
+});
+
+app.get('/swift', (req, res) => {
+  res.sendFile(__dirname + '/public/swift.html');
 });
 
 // tech namespace
