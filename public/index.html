@@ -56,15 +56,18 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
+      const room = 'javascript';
       const techSocket = io.connect('http://localhost:3000/tech')
+
       $('form').submit(() => {
-        techSocket.emit('message', $('#m').val()); // emit a message event with the value from the input #m
+        const msg = $('#m').val();
+        techSocket.emit('message', { room, msg }); // emit a message event
         $('#m').val(''); // reset input value
         return false;
       });
 
       techSocket.on('connect', () => {
-        techSocket.emit('message', 'user connected'); // emitting notification to everybody
+        techSocket.emit('join', { room }); // emitting notification to everybody
       });
 
       techSocket.on('message', (message) => { // when receiving a message

@@ -15,11 +15,13 @@ app.get('/', (req, res) => {
 const tech = io.of('/tech');
 
 tech.on('connection', (socket) => {
-  console.log(`user connected`);
+  socket.on('join', ({ room }) => {
+    socket.join(room);
+    tech.in(room).emit('message', `[new user has joined ${room} room]`);
+  });
 
-  socket.on('message', (message) => {
-    console.log(`[Client]: ${message}`);
-    tech.emit('message', message);  // this will redistribute message to all clients, who in turn will display it on their ui
+  socket.on('message', ({ room, msg }) => {
+    tech.in(room).emit('message', msg);  // this will redistribute message to all clients in the room, who in turn will display it on their ui
   });
 
   socket.on('disconnect', () => {
